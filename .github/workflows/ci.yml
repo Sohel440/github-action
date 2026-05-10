@@ -38,7 +38,7 @@ jobs:
       working-directory: frontend
       run: npm run lint -- --max-warnings=0
 
-    # - name: Build backend Docker image
-    #   run: docker build -t backend ./server
-    # - name: Build frontend Docker image
-    #   run: docker build -t frontend ./client
+    - name: Build backend Docker image
+      run: docker build -t docker-course-server ./backend
+    - name: Build frontend Docker image
+      run: docker build --build-arg VITE_API_URL=http://localhost:8000 -t docker-course-client ./frontend
