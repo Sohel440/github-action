@@ -1,5 +1,6 @@
 // App.jsx
 
+import { useCallback } from 'react';
 import { useEffect, useState } from 'react';
 
 export default function App() {
@@ -11,20 +12,19 @@ export default function App() {
     Emp_id: '',
   });
 
-  const fetchUsers = async () => {
-    try {
-      const res = await fetch(`${apiUrl}/users`);
-      const data = await res.json();
-      console.log(data.users);
-      setUsers(data.users);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const fetchUsers = useCallback(async () => {
+  try {
+    const res = await fetch(`${apiUrl}/users`);
+    const data = await res.json();
+    setUsers(data.users);
+  } catch (error) {
+    console.log(error);
+  }
+}, [apiUrl]);
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [fetchUsers]);
 
   const handleChange = (e) => {
     setForm({
